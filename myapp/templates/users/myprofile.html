@@ -1,0 +1,43 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Gebruiker{% endblock %}
+{% block main_content %}
+
+<h1> Gebruiker </h1>
+
+
+<a href="{{ url_for('bp_users.do_users') }}">Ga terug naar lijst</a>
+<div class="tinyspace"></div>
+<div style="width:500px;">
+<form method="post" name="form-profile" class="form">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+    {{ form.username.label(class_="form-label") }} {{ form.username(class_="form-control") }}</div>
+
+    <div class="form-group">
+    {{ form.email.label(class_="form-label") }} {{ form.email(class_="form-control") }}</div>
+    <div class="tinyspace"></div>
+    {{ form.submit(class_="btn btn-primary") }}
+    <!--
+    <label for="profile_email" class="form-label"></label>
+    <input type="text" value="{{ user.email }}"" id="profile_email" name="profile_email" default="Uw email adres"><br>
+    <hr width=90%
+
+    <label for="profile_email" class="form-label">Gebruikersnaam</label>
+    
+   {{ form.username(class_="form_control") }}<br>
+    
+
+
+    {{ form.email.label(class_="form-label") }} {{ form.email(class_="form_control") }}<br>
+    -->
+
+</form>
+</div>
+
+<div class="row">
+    <img src=""></img>
+</div>
+
+{% endblock %}

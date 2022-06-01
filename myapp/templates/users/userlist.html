@@ -1,0 +1,37 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Users{% endblock %}
+{% block main_content %}
+
+<table class="table table-striped">
+    <thead>
+        <th>id</th>
+        <th>naam</th>
+        <th>email</th>
+    </thead>
+    <tfoot>
+        <th>id</th>
+        <th>naam</th>
+        <th>email</th>
+    </tfoot>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>
+                <a href="{{ url_for('bp_users.do_user', user_id=user.id) }}">
+                {{ user.id }}
+                </a>
+
+
+            </td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+{% endblock %}

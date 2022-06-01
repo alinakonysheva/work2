@@ -1,0 +1,33 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Signup{% endblock %}
+{% block main_content %}
+
+<div class="tinyspace"></div>
+<div class="page-header">
+    <h1>Signup</h1>
+</div>
+<div style="width:500px;">
+    <form method="post" name="form-login">
+      {{ form.hidden_tag() }}
+      <div class="row"><div class="col">
+        {{ form.email.label(class_="form-control-label") }} {{ form.email(placeholder="name@example.com", class_="form-control") }}<br>
+      </div></div>
+      <div class="row"><div class="col">
+        {{ form.username.label(class_="form-control-label") }} {{ form.username(placeholder="Your username", class_="form-control") }}<br>
+      </div></div>
+      <div class="row"><div class="col">
+        {{ form.password.label(class_="form-control-label") }} {{ form.password(placeholder="Your password", class_="form-control") }}<br>
+      </div></div>
+     
+      <div class="tinyspace"></div>
+      <div class="row"><div class="col"> 
+      {{ form.submit(class_="btn btn-primary") }}
+     </div></div>
+  </form>
+   <div class="tinyspace"></div>
+<a class="btn btn-primary" href="{{ url_for('bp_users.do_login')}}" role="button">Log in</a>
+</div>
+
+{% endblock %}

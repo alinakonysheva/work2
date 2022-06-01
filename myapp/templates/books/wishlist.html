@@ -1,0 +1,48 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Wishlist{% endblock %}
+{% block main_content %}
+
+<table class="table table-striped">
+    <thead>
+    <th> Title</th>
+    <th> Author, first name</th>
+    <th> Author, last name</th>
+    <th> Release year</th>
+    <th> Language</th>
+    </thead>
+    <tfoot>
+    <th> Title</th>
+    <th> Author, first name</th>
+    <th> Author, last name</th>
+    <th> Release year</th>
+    <th> Language</th>
+    </tfoot>
+    <tbody>
+    {% if wishlist_books %}
+    {% for wl_book in wishlist_books %}
+    <tr>
+        <td>{{ wl_book.book.book_title }}</td>
+        <td>{{ wl_book.book.author_first_name }}</td>
+        <td>{{ wl_book.book.author_last_name}}</td>
+        <td>{{ wl_book.book.release_year }}</td>
+        <td>{{ wl_book.book.language}}</td>
+
+        <td>
+            <button onclick="document.location='{{ url_for('bp_books.delete_book_from_wishlist', wishlist_book_id=wl_book.id)}}'"
+                    class="btn btn-primary">
+                remove
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        No books in your wishlist
+    </tr>
+    {% endif %}
+    </tbody>
+
+</table>
+{% endblock %}

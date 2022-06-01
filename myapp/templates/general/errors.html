@@ -1,0 +1,19 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}{{ code }}{% endblock %}
+{% block main_content %}
+    <div class="space"></div>
+    <div class="space"></div>
+    <h3 class="text-center">
+        
+        {% if code == 403 %}
+        Not authorized
+        {% elif code == 404 %}
+        Page Not Found !!!!!!
+        {% else %}
+        error
+        {% endif %}
+
+    </h3>
+{% endblock %}

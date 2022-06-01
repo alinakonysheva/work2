@@ -1,0 +1,69 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Books{% endblock %}
+{% block main_content %}
+
+
+<h1>All books </h1>
+<div class="tinyspace"></div>
+{%if user and user.is_admin() %}
+<button onclick="document.location='{{ url_for('bp_books.add_ebook')}}'" class="btn btn-primary">
+    Add ebook
+</button>
+<button onclick="document.location='{{ url_for('bp_books.add_audiobook')}}'" class="btn btn-primary">
+    Add audiobook
+</button>
+<button onclick="document.location='{{ url_for('bp_books.add_paper_book')}}'" class="btn btn-primary">
+    Add paper book
+</button>
+{%endif %}
+
+<div class="tinyspace"></div>
+
+<ul class="list-group">
+
+    {% for book in books %}
+<li class="list-group-item"><a href="{{ url_for('bp_books.show_book',  book_id=book.id)}}">{{ book.id }} - {{book.book_title}} - {{book.author_first_name}} - {{book.author_last_name}}</a>
+    {% if book.size %}
+    <button onclick="document.location='{{ url_for('bp_books.delete_ebook', ebook_id=book.id)}}'"
+            class="btn btn-primary">
+        delete
+    </button>
+    <button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+            class="btn btn-primary">
+        to wishlist
+    </button>
+</li>
+{% endif %}
+{% if book.duration_hours %}
+    <button onclick="document.location='{{ url_for('bp_books.delete_audiobook', audiobook_id=book.id)}}'"
+            class="btn btn-primary">
+        delete
+    </button>
+    <button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+            class="btn btn-primary">
+        to wishlist
+    </button>
+
+</li>
+{% endif %}
+
+{% if book.isbn %}
+    <button onclick="document.location='{{ url_for('bp_books.delete_paperbook', paperbook_id=book.id)}}'"
+            class="btn btn-primary">
+        delete
+    </button>
+
+    <button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+            class="btn btn-primary">
+        to wishlist
+    </button>
+</li>
+{% endif %}
+
+{% endfor %}
+</ul>
+
+{% endblock %}
+

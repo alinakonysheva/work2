@@ -1,0 +1,59 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Add ebook{% endblock %}
+{% block main_content %}
+
+<h1>Add ebook</h1>
+
+<p>
+<form action="{{ url_for('bp_books.add_ebook_post')}}" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label(class_="form-label") }} {{ form.title(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.author_first_name.label(class_="form-label") }} {{ form.author_first_name(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.author_middle_name.label(class_="form-label") }} {{ form.author_middle_name(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.author_last_name.label(class_="form-label") }} {{ form.author_last_name(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.release_year.label(class_="form-label") }} {{ form.release_year(class_="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.rating.label(class_="form-label") }} {{ form.rating(class_="form-control") }}
+    </div>
+     <div class="tinyspace"></div>
+    <div class="form-group">
+        {{ form.pic.label(class_="form-label") }}
+        <input type="file" name="pic" class="form-control-file">
+    </div>
+
+    <div class="form-group">
+        {{ form.category.label(class_="form-label") }} {{ form.category(class_="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.language.label(class_="form-label") }} {{ form.language(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.annotation.label(class_="form-label") }} {{ form.annotation(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.publisher.label(class_="form-label") }} {{ form.publisher(class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.size.label(class_="form-label") }} {{ form.size(class_="form-control") }}
+    </div>
+    <div class="tinyspace"></div>
+    {{ form.submit(class_="btn btn-primary") }}
+
+</form>
+</p>
+{% endblock %}
+

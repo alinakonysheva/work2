@@ -1,0 +1,180 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Book details{% endblock %}
+{% block main_content %}
+
+<h1>{{ book.book_title }}</h1>
+<table class="table table-bordered">
+    <thead>
+    Details
+    </thead>
+    <tbody>
+    <tr>
+        <td> picture</td>
+        <td> <img src="data:;base64,{{book.pic_encoded()}}" width="400"/> </td>
+    </tr>
+    <tr>
+        <td> Author first name</td>
+        <td> {{book.author_first_name}}</td>
+    </tr>
+    <tr>
+        <td> Author middle name</td>
+        <td> {{book.author_middle_name}}</td>
+    </tr>
+
+    <tr>
+        <td> Author last name</td>
+        <td> {{book.author_last_name}}</td>
+    </tr>
+
+    <tr>
+        <td> Release year</td>
+        <td>{{ book.release_year }}</td>
+
+    </tr>
+    <tr>
+        <td> Rating</td>
+        <td> {{ book.rating }}</td>
+    </tr>
+
+
+
+    <tr>
+        <td> Category</td>
+        <td> {{book.category}}</td>
+    </tr>
+
+    <tr>
+        <td> Language</td>
+        <td> {{book.language}}</td>
+    </tr>
+
+    <tr>
+        <td> Annotation</td>
+        <td> {{book.annotation}}</td>
+    </tr>
+
+    <tr>
+        <td> Publisher</td>
+        <td> {{book.publisher}}</td>
+    </tr>
+    {% if book.size %}
+    <tr>
+        <td> Size in Mb</td>
+        <td> {{book.size}}</td>
+    </tr>
+    {% elif book.reader_first_name %}
+    <tr>
+        <td> Reader, first name</td>
+        <td> {{book.reader_first_name}}</td>
+    </tr>
+    <tr>
+        <td> Reader, middle name</td>
+        <td> {{book.reader_middle_name}}</td>
+    </tr>
+    <tr>
+        <td> Reader, last name</td>
+        <td> {{book.reader_last_name}}</td>
+    </tr>
+    <tr>
+        <td> Duration, hours</td>
+        <td> {{book.duration_hours}}</td>
+    </tr>
+    <tr>
+        <td> Duration, minutes</td>
+        <td> {{book.duration_minutes}}</td>
+    </tr>
+    <tr>
+        <td> Duration, seconds</td>
+        <td> {{book.duration_seconds}}</td>
+    </tr>
+    {% elif book.cover %}
+    <tr>
+        <td> Cover</td>
+        <td> {{book.cover}}</td>
+    </tr>
+
+    <tr>
+        <td> Length in cm</td>
+        <td> {{book.length}}</td>
+    </tr>
+
+    <tr>
+        <td> Width in cm</td>
+        <td> {{book.width}}</td>
+    </tr>
+
+    <tr>
+        <td> Weight in gr</td>
+        <td> {{book.weight}}</td>
+    </tr>
+    <tr>
+        <td> Number of pages</td>
+        <td> {{book.pages}}</td>
+    </tr>
+    <tr>
+        <td> ISBN</td>
+        <td> {{book.isbn}}</td>
+    </tr>
+
+    {%endif%}
+
+
+    </tbody>
+
+</table>
+
+<div class="tinyspace"></div>
+
+{% if book.size %}
+<button onclick="document.location='{{ url_for('bp_books.change_ebook',  book_id=book.id)}}'"
+        class="btn btn-primary">
+    edit
+</button>
+<button onclick="document.location='{{ url_for('bp_books.delete_ebook', ebook_id=book.id)}}'"
+        class="btn btn-primary">
+    delete
+</button>
+<button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+        class="btn btn-primary">
+    to wishlist
+</button>
+</li>
+{% endif %}
+{% if book.duration_hours %}
+<button onclick="document.location='{{ url_for('bp_books.change_audiobook', book_id=book.id)}}'"
+        class="btn btn-primary">
+    edit
+</button>
+<button onclick="document.location='{{ url_for('bp_books.delete_audiobook', audiobook_id=book.id)}}'"
+        class="btn btn-primary">
+    delete
+</button>
+<button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+        class="btn btn-primary">
+    to wishlist
+</button>
+
+</li>
+{% endif %}
+
+{% if book.isbn %}
+<button onclick="document.location='{{ url_for('bp_books.change_paperbook', book_id=book.id)}}'"
+        class="btn btn-primary">
+    edit
+</button>
+<button onclick="document.location='{{ url_for('bp_books.delete_paperbook', paperbook_id=book.id)}}'"
+        class="btn btn-primary">
+    delete
+</button>
+
+<button onclick="document.location='{{ url_for('bp_books.add_book_to_wishlist',  book_id=book.id)}}'"
+        class="btn btn-primary">
+    to wishlist
+</button>
+</li>
+{% endif %}
+<div class="tinyspace"></div>
+
+{% endblock %}

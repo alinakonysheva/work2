@@ -1,0 +1,17 @@
+{% extends 'index_base.html' %}
+
+
+{% block title_block %}Home{% endblock %}
+{% block main_content %}
+
+<h1>Welcome to our library!</h1>
+
+<p>
+please <a class="btn btn-primary" href="{{ url_for('bp_users.do_login')}}" role="button">Log in</a> or <a class="btn btn-primary" href="{{url_for('bp_users.do_signup')}}" role="button">Sign up</a> to start your experience here.
+<img src="static/icons/book.png" class="img-fluid" alt="Responsive image">
+</p>
+
+
+
+
+{% endblock %}
