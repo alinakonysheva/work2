@@ -51,7 +51,7 @@
 {% endif %}
 
 {% if book.isbn %}
-    {% if book.duration_hours %}
+    {%if user and user.is_admin() %}
     <button onclick="document.location='{{ url_for('bp_books.delete_paperbook', paperbook_id=book.id)}}'"
             class="btn btn-primary">
         delete
