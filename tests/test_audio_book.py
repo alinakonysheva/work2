@@ -69,14 +69,35 @@ C_DURATION_MINUTES_2 = 52
 C_DURATION_SECONDS = 34
 C_DURATION_SECONDS_2 = 36
 
+from flask import Flask
+import unittest
+
+from myapp import db
 
 class BaseDbTest(TestCase):
-    engine = create_engine('sqlite://')
-    session = sessionmaker(bind=engine)()
 
     def setUp(self):
-        create_database(self.engine)
-        self.do_setup()
+        """
+        Creates a new database for the unit test to use
+        """
+        self.app = Flask(__name__)
+        db.init_app(self.app)
+        #with self.app.app_context():
+        self.app.app_context().push()
+        db.create_all()
+
+    def tearDown(self):
+        """
+        Ensures that the database is emptied for next unit test
+        """
+        self.app = Flask(__name__)
+        db.init_app(self.app)
+        #with self.app.app_context():
+        #self.app.app_context().pop()
+        db.drop_all()
+
+    def get_session(self):
+        return db.session
 
     @abstractmethod
     def do_setup(self):
@@ -106,10 +127,10 @@ class AudioBookTests(BaseDbTest):
         audio_book.duration_minutes = C_DURATION_MINUTES
         audio_book.duration_seconds = C_DURATION_SECONDS
 
-        self.session.add(audio_book)
-        self.session.commit()
+        self.get_session().add(audio_book)
+        self.get_session().commit()
 
-        ab_from_query = self.session.query(AudioBook).get(1)
+        ab_from_query = self.get_session().query(AudioBook).get(1)
         self.assertEqual(ab_from_query.book_title, C_TITLE)
         self.assertEqual(ab_from_query.author_last_name, C_AUTHOR_LAST_NAME)
         self.assertEqual(ab_from_query.author_first_name, C_AUTHOR_FIRST_NAME)
