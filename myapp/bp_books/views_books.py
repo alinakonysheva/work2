@@ -1,16 +1,12 @@
-
 from myapp import db
 from flask import render_template, abort, redirect, flash, url_for
 from flask_login import current_user
 
-from myapp.bp_books.controller_books import ControllerBook, ControllerEBook, ControllerAudioBook, ControllerPaperBook, \
+from myapp.bp_books.controller_books import ControllerEBook, ControllerAudioBook, ControllerPaperBook, \
     ControllerWishlist
 from myapp.bp_books.form_books import EbookForm, AudiobookForm, PaperbookForm, SearchForm
 from myapp.bp_books import bp_books
 from myapp.bp_users.model_users import load_user
-
-# todo: replace in const:
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 
 @bp_books.route('/books')
@@ -19,7 +15,6 @@ def do_books():
     audiobooks = ControllerAudioBook(db.session).get_all_audiobook()
     paperbooks = ControllerPaperBook(db.session).get_all_paper_book()
     books = ebooks + audiobooks + paperbooks
-    user = None
     if current_user and current_user.is_authenticated:
         user_id = current_user.get_id()
         user = load_user(user_id)
@@ -31,9 +26,13 @@ def do_books():
 def show_book(book_id):
     book = ControllerPaperBook(db.session).get_paper_book_by_id(book_id) or ControllerAudioBook(
         db.session).get_audiobook_by_id(book_id) or ControllerEBook(db.session).get_ebook_by_id(book_id)
-    if book:
 
-        return render_template('books/viewbook.html', book=book)
+    if current_user and current_user.is_authenticated:
+        user_id = current_user.get_id()
+        user = load_user(user_id)
+
+    if book:
+        return render_template('books/viewbook.html', book=book, user=user)
     else:
         return redirect(url_for('bp_books.do_books'))
 
@@ -320,32 +319,3 @@ def do_not_authorized(error):
 
 def do_server_error(error):
     return render_template('general/errors.html', code=500, error=error)
-
-
-"""
-bp_blog.route('/blog', defaults={'blog_id':0}, methods=['GET', 'POST'])
-@bp_blog.route('/blog/<int:blog_id>', methods=['GET', 'POST'])
-def do_blog(blog_id):    
-    user = current_user
-    form = BlogForm()
-    if blog_id == 0:
-        blog_item = Blog()
-    else:
-        blog_item = db.session.query(Blog).get(blog_id)
-        if blog_item is None:
-            flash('blog item does not exist')
-            
-    if user and user.is_authenticated:
-        if form.validate_on_submit():
-            blog_item.title = form.title.data
-            blog_item.content = form.content.data
-            db.session.add(blog_item)
-            db.session.commit()
-
-            return redirect(url_for('bp_blog.do_blog', blog_id=blog_item.id))
-
-    form.title.data = blog_item.title
-    form.content.data = blog_item.content
-
-    return render_template('blog/blog_edit.html', form=form, blog_item=blog_item)
-"""

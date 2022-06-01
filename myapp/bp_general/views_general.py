@@ -1,4 +1,4 @@
-from flask import render_template, abort, redirect, flash, url_for, current_app
+from flask import render_template
 from myapp import db
 from myapp.bp_general import bp_general
 from flask_login import current_user

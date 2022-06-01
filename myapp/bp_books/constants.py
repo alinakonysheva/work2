@@ -753,3 +753,5 @@ status_role = {0: "user", 1: "admin"}
 MESSAGES_OK = 'OK'
 MESSAGES_WARNING = 'WARNING'
 MESSAGES_ERROR = 'ERROR'
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
